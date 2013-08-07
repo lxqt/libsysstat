@@ -30,7 +30,7 @@
 
 #include <QtCore/QObject>
 
-#include <sysstat/basestat.h>
+#include "basestat.h"
 
 
 namespace SysStat {

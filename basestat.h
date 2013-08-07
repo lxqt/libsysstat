@@ -32,7 +32,7 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
-#include <sysstat/sysstat_global.h>
+#include "sysstat_global.h"
 
 
 namespace SysStat {

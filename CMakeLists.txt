@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 2.6)
+
 project(libsysstat)
 
 set (MAJOR_VERSION 0)
@@ -9,6 +11,9 @@ add_definitions(-DPATCH_VERSION=${PATCH_VERSION})
 add_definitions(-DSYSSTAT_LIBRARY)
 
 add_definitions(-Wall)
+
+find_package(Qt4 REQUIRED)
+include(${QT_USE_FILE})
 
 
 set(SYSSTAT_PUBLIC_HDRS
@@ -83,5 +88,5 @@ install(TARGETS sysstat DESTINATION lib${LIB_SUFFIX})
 install(FILES ${SYSSTAT_PUBLIC_HDRS} DESTINATION include/sysstat)
 install(FILES ${SYSSTAT_QM_FILES}    DESTINATION ${APP_SHARE_DIR})
 
-include(create_pkgconfig_file)
+include(cmake/create_pkgconfig_file.cmake)
 create_pkgconfig_file(sysstat "SysStat, a Qt-based interface to system statistics")
