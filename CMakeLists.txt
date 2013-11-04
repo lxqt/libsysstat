@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 2.6)
 
 project(libsysstat)
 
+# Set default installation paths
+set(LIB_INSTALL_DIR lib CACHE PATH "Installation path for libraries")
+set(INCLUDE_INSTALL_DIR include CACHE PATH "Installation path for includes")
+
 set (MAJOR_VERSION 0)
 set (MINOR_VERSION 1)
 set (PATCH_VERSION 0)
@@ -90,8 +94,8 @@ set_target_properties(sysstat PROPERTIES
   SOVERSION ${MAJOR_VERSION}
 )
 
-install(TARGETS sysstat DESTINATION lib${LIB_SUFFIX})
-install(FILES ${SYSSTAT_PUBLIC_HDRS} DESTINATION include/sysstat)
+install(TARGETS sysstat DESTINATION ${LIB_INSTALL_DIR}${LIB_SUFFIX})
+install(FILES ${SYSSTAT_PUBLIC_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/sysstat)
 install(FILES ${SYSSTAT_QM_FILES}    DESTINATION ${APP_SHARE_DIR})
 
 include(cmake/create_pkgconfig_file.cmake)
