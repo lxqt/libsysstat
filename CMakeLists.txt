@@ -5,6 +5,8 @@ project(libsysstat)
 set (MAJOR_VERSION 0)
 set (MINOR_VERSION 1)
 set (PATCH_VERSION 0)
+set (SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
+
 add_definitions(-DMAJOR_VERSION=${MAJOR_VERSION})
 add_definitions(-DMINOR_VERSION=${MINOR_VERSION})
 add_definitions(-DPATCH_VERSION=${PATCH_VERSION})
@@ -84,7 +86,7 @@ add_library(sysstat SHARED ${SYSSTAT_PUBLIC_HDRS} ${SYSSTAT_PRIVATE_HDRS} ${SYSS
 target_link_libraries(sysstat  ${QT_LIBRARIES})
 
 set_target_properties(sysstat PROPERTIES
-  VERSION ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}
+  VERSION ${SYSSTAT_VERSION}
   SOVERSION ${MAJOR_VERSION}
 )
 
@@ -94,3 +96,13 @@ install(FILES ${SYSSTAT_QM_FILES}    DESTINATION ${APP_SHARE_DIR})
 
 include(cmake/create_pkgconfig_file.cmake)
 create_pkgconfig_file(sysstat "SysStat, a Qt-based interface to system statistics")
+
+# cmake config file
+set(SYSSTAT_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include/sysstat)
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sysstat-config.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/sysstat-config.cmake
+    @ONLY
+)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/sysstat-config.cmake DESTINATION share/cmake/sysstat)
+install(FILES cmake/sysstat_use.cmake DESTINATION share/cmake/sysstat)
