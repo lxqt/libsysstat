@@ -10,7 +10,11 @@ add_definitions(-DMINOR_VERSION=${MINOR_VERSION})
 add_definitions(-DPATCH_VERSION=${PATCH_VERSION})
 add_definitions(-DSYSSTAT_LIBRARY)
 
-add_definitions(-Wall)
+# use gcc visibility feature to decrease unnecessary exported symbols
+if (CMAKE_COMPILER_IS_GNUCXX)
+    # set visibility to hidden to hide symbols, unlesss they're exporeted manually in the code
+    set(CMAKE_CXX_FLAGS "-fvisibility=hidden -fvisibility-inlines-hidden -fno-exceptions -Wall")
+endif()
 
 find_package(Qt4 REQUIRED)
 include(${QT_USE_FILE})
