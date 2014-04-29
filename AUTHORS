@@ -1,5 +1,11 @@
-Copyright (C) 2010-2013 Razor team <http://razor-qt.org>
-Copyright (c) 2009 - 2012 Kuzma Shapran <Kuzma.Shapran@gmail.com>
+Upstream Authors:
+    LXQt team: http://lxqt.org
+    Razor team: http://razor-qt.org
+    Kuzma Shapran <kuzma.shapran@gmail.com>
+
+Copyright:
+    Copyright (c) 2012 Razor team
+    Copyright (c) 2012-2014 LXQt team
 
 License: GPL-2 and LGPL-2.1+
- The full text of the licenses can be found in the 'COPYING' file.
+The full text of the licenses can be found in the 'COPYING' file.
