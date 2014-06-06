@@ -127,7 +127,7 @@ QString BaseStatPrivate::readAllFile(const char *filename)
         ssize_t size = ::read(fd, buffer, bufferSize);
         ::close(fd);
         if (size > 0)
-            result = QString::fromAscii(buffer, size);
+            result = QString::fromLatin1(buffer, size);
     }
 
     return result;
