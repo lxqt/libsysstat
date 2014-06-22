@@ -2,15 +2,8 @@ cmake_minimum_required(VERSION 2.6)
 
 project(libsysstat)
 
-option(USE_QT5 "Build with Qt5." OFF)
-if (USE_QT5 AND USE_QT4)
-    message(FATAL "USE_QT4 and USE_QT5 both set. Please choose *only* one Qt version")
-elseif(USE_QT5)
-    set(USE_QT4 OFF)
-else()
-    set(USE_QT4 ON)
-endif()
-
+# Support different versions of Qt
+option(USE_QT5 "Build with Qt5." $ENV{USE_QT5})
 
 # Set default installation paths
 set(LIB_INSTALL_DIR "lib${LIB_SUFFIX}" CACHE PATH "Installation path for libraries")
@@ -37,12 +30,10 @@ if (USE_QT5)
     find_package(Qt5Core REQUIRED QUIET)
     find_package(Qt5LinguistTools REQUIRED QUIET)
     set(QT_VERSION_SUFFIX "-qt5")
-    message(STATUS "Building with Qt${Qt5Core_VERSION_STRING}")
 else()
     find_package(Qt4 REQUIRED)
     include(${QT_USE_FILE})
     set(QT_VERSION_SUFFIX "")
-    message(STATUS "Building with Qt${QTVERSION}")
 endif()
 
 set(SYSSTAT_LIBRARY_NAME "sysstat${QT_VERSION_SUFFIX}")
