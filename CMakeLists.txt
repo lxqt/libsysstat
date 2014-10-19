@@ -1,9 +1,6 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.11)
 
 project(libsysstat)
-
-# Support different versions of Qt
-option(USE_QT5 "Build with Qt5." $ENV{USE_QT5})
 
 # Set default installation paths
 set(LIB_INSTALL_DIR "lib${LIB_SUFFIX}" CACHE PATH "Installation path for libraries")
@@ -20,23 +17,15 @@ add_definitions(-DPATCH_VERSION=${PATCH_VERSION})
 add_definitions(-DSYSSTAT_LIBRARY)
 
 # use gcc visibility feature to decrease unnecessary exported symbols
-if (CMAKE_COMPILER_IS_GNUCXX)
+if(CMAKE_COMPILER_IS_GNUCXX)
     # set visibility to hidden to hide symbols, unlesss they're exporeted manually in the code
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -fno-exceptions -Wall")
 endif()
 
-if (USE_QT5)
-    cmake_minimum_required(VERSION 2.8.11)
-    find_package(Qt5Core REQUIRED QUIET)
-    find_package(Qt5LinguistTools REQUIRED QUIET)
-    set(QT_VERSION_SUFFIX "-qt5")
-else()
-    find_package(Qt4 REQUIRED)
-    include(${QT_USE_FILE})
-    set(QT_VERSION_SUFFIX "")
-endif()
+find_package(Qt5Core REQUIRED QUIET)
+find_package(Qt5LinguistTools REQUIRED QUIET)
 
-set(SYSSTAT_LIBRARY_NAME "sysstat${QT_VERSION_SUFFIX}")
+set(SYSSTAT_LIBRARY_NAME "sysstat-qt5")
 set(HEADER_NAMESPACE "SysStat")
 
 set(SYSSTAT_PUBLIC_HDRS
@@ -85,41 +74,27 @@ set(SYSSTAT_MOCS
 )
 
 
-# Translations **********************************
+# Translations
 file(GLOB SYSSTAT_TS_FILES
     translations/*.ts
 )
-#************************************************
 
+qt5_wrap_cpp(SYSSTAT_CXX ${SYSSTAT_MOCS})
+qt5_add_translation(SYSSTAT_QM_FILES ${SYSSTAT_TS_FILES})
 
-#**********************************************************
-
-if (USE_QT5)
-    QT5_WRAP_CPP(SYSSTAT_CXX ${SYSSTAT_MOCS})
-    qt5_add_translation(SYSSTAT_QM_FILES ${SYSSTAT_TS_FILES})
-else()
-    QT4_WRAP_CPP(SYSSTAT_CXX ${SYSSTAT_MOCS})
-    qt4_add_translation(SYSSTAT_QM_FILES ${SYSSTAT_TS_FILES})
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
 endif()
-
-if (NOT CMAKE_BUILD_TYPE)
-    set ( CMAKE_BUILD_TYPE Release )
-endif (NOT CMAKE_BUILD_TYPE)
 
 
 set(APP_SHARE_DIR "${CMAKE_INSTALL_PREFIX}/share/${SYSSTAT_LIBRARY_NAME}")
 
-include_directories( .. )
+include_directories(..)
 add_definitions(-DTRANSLATIONS_DIR=\"${APP_SHARE_DIR}\")
 
 add_library(${SYSSTAT_LIBRARY_NAME} SHARED ${SYSSTAT_PUBLIC_HDRS} ${SYSSTAT_PRIVATE_HDRS} ${SYSSTAT_SRCS} ${SYSSTAT_CXX} ${SYSSTAT_QM_FILES})
 
-if(USE_QT5)
-    target_link_libraries(${SYSSTAT_LIBRARY_NAME}  Qt5::Core)
-else()
-    target_link_libraries(${SYSSTAT_LIBRARY_NAME}  ${QT_LIBRARIES})
-endif()
-
+target_link_libraries(${SYSSTAT_LIBRARY_NAME}  Qt5::Core)
 
 set_target_properties(${SYSSTAT_LIBRARY_NAME} PROPERTIES
   VERSION ${SYSSTAT_VERSION}
@@ -132,30 +107,30 @@ create_portable_headers(SYSSTAT_NAMESPACE_HEADERS
     NAMESPACE "${HEADER_NAMESPACE}/"
     FILENAMES ${SYSSTAT_PUBLIC_CLASSES}
 )
-install(TARGETS ${SYSSTAT_LIBRARY_NAME} DESTINATION ${LIB_INSTALL_DIR})
-install(FILES ${SYSSTAT_PUBLIC_HDRS} DESTINATION ${INCLUDE_INSTALL_DIR}/${SYSSTAT_LIBRARY_NAME})
-install(FILES ${SYSSTAT_NAMESPACE_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR}/${SYSSTAT_LIBRARY_NAME}/${HEADER_NAMESPACE})
-install(FILES ${SYSSTAT_QM_FILES}    DESTINATION ${APP_SHARE_DIR})
+install(TARGETS ${SYSSTAT_LIBRARY_NAME} DESTINATION "${LIB_INSTALL_DIR}")
+install(FILES ${SYSSTAT_PUBLIC_HDRS} DESTINATION "${INCLUDE_INSTALL_DIR}/${SYSSTAT_LIBRARY_NAME}")
+install(FILES ${SYSSTAT_NAMESPACE_HEADERS} DESTINATION "${INCLUDE_INSTALL_DIR}/${SYSSTAT_LIBRARY_NAME}/${HEADER_NAMESPACE}")
+install(FILES ${SYSSTAT_QM_FILES} DESTINATION "${APP_SHARE_DIR}")
 
 include(cmake/create_pkgconfig_file.cmake)
 create_pkgconfig_file(${SYSSTAT_LIBRARY_NAME} "SysStat, a Qt-based interface to system statistics")
 
 # cmake config file
-set(SYSSTAT_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/include/${SYSSTAT_LIBRARY_NAME})
+set(SYSSTAT_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/include/${SYSSTAT_LIBRARY_NAME}")
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sysstat-config.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-config.cmake
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/sysstat-config.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-config.cmake"
     @ONLY
 )
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-config.cmake DESTINATION share/cmake/${SYSSTAT_LIBRARY_NAME})
-install(FILES cmake/sysstat_use.cmake DESTINATION share/cmake/${SYSSTAT_LIBRARY_NAME})
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-config.cmake" DESTINATION "share/cmake/${SYSSTAT_LIBRARY_NAME}")
+install(FILES cmake/sysstat_use.cmake DESTINATION "share/cmake/${SYSSTAT_LIBRARY_NAME}")
 
 # building tarball with CPack -------------------------------------------------
-include (InstallRequiredSystemLibraries)
-set (CPACK_PACKAGE_VERSION_MAJOR ${MAJOR_VERSION})
-set (CPACK_PACKAGE_VERSION_MINOR ${MINOR_VERSION})
-set (CPACK_PACKAGE_VERSION_PATCH ${PATCH_VERSION})
-set (CPACK_GENERATOR TBZ2)
-set (CPACK_SOURCE_GENERATOR TBZ2)
-set (CPACK_SOURCE_IGNORE_FILES /build/;.gitignore;.*~;.git;.kdev4;temp)
-include (CPack)
+include(InstallRequiredSystemLibraries)
+set(CPACK_PACKAGE_VERSION_MAJOR ${MAJOR_VERSION})
+set(CPACK_PACKAGE_VERSION_MINOR ${MINOR_VERSION})
+set(CPACK_PACKAGE_VERSION_PATCH ${PATCH_VERSION})
+set(CPACK_GENERATOR TBZ2)
+set(CPACK_SOURCE_GENERATOR TBZ2)
+set(CPACK_SOURCE_IGNORE_FILES /build/;.gitignore;.*~;.git;.kdev4;temp)
+include(CPack)
