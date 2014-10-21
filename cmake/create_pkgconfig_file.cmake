@@ -16,7 +16,7 @@ macro (create_pkgconfig_file name desc)
             "\n"
             "Name: ${name}\n"
             "Description: ${desc}\n"
-            "Version: ${LXQT_VERSION}\n"
+            "Version: ${SYSSTAT_VERSION}\n"
             "Libs: -L\${libdir} -l${name}\n"
             "Cflags: -I\${includedir}\n"
             "\n"
