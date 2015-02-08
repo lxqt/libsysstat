@@ -7,7 +7,7 @@ set(LIB_INSTALL_DIR "lib${LIB_SUFFIX}" CACHE PATH "Installation path for librari
 set(INCLUDE_INSTALL_DIR include CACHE PATH "Installation path for includes")
 
 set(MAJOR_VERSION 0)
-set(MINOR_VERSION 2)
+set(MINOR_VERSION 3)
 set(PATCH_VERSION 0)
 set(SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 
