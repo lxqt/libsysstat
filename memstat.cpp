@@ -46,12 +46,12 @@ MemStatPrivate::~MemStatPrivate()
 
 void MemStatPrivate::timeout()
 {
-    qulonglong memTotal;
-    qulonglong memFree;
-    qulonglong memBuffers;
-    qulonglong memCached;
-    qulonglong swapTotal;
-    qulonglong swapFree;
+    qulonglong memTotal = 0;
+    qulonglong memFree = 0;
+    qulonglong memBuffers = 0;
+    qulonglong memCached = 0;
+    qulonglong swapTotal = 0;
+    qulonglong swapFree = 0;
 
     foreach (QString row, readAllFile("/proc/meminfo").split(QChar('\n'), QString::SkipEmptyParts))
     {
