@@ -27,6 +27,9 @@ endif()
 find_package(Qt5Core REQUIRED QUIET)
 find_package(Qt5LinguistTools REQUIRED QUIET)
 
+
+set(CMAKE_AUTOMOC ON)
+
 set(SYSSTAT_LIBRARY_NAME "sysstat-qt5")
 set(HEADER_NAMESPACE "SysStat")
 
@@ -64,24 +67,11 @@ set(SYSSTAT_SRCS
     netstat.cpp
 )
 
-set(SYSSTAT_MOCS
-    basestat.h
-    cpustat.h
-    memstat.h
-    netstat.h
-    basestat_p.h
-    cpustat_p.h
-    memstat_p.h
-    netstat_p.h
-)
-
-
 # Translations
 file(GLOB SYSSTAT_TS_FILES
     translations/*.ts
 )
 
-qt5_wrap_cpp(SYSSTAT_CXX ${SYSSTAT_MOCS})
 qt5_add_translation(SYSSTAT_QM_FILES ${SYSSTAT_TS_FILES})
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -94,7 +84,7 @@ set(APP_SHARE_DIR "${CMAKE_INSTALL_PREFIX}/share/${SYSSTAT_LIBRARY_NAME}")
 include_directories(..)
 add_definitions(-DTRANSLATIONS_DIR=\"${APP_SHARE_DIR}\")
 
-add_library(${SYSSTAT_LIBRARY_NAME} SHARED ${SYSSTAT_PUBLIC_HDRS} ${SYSSTAT_PRIVATE_HDRS} ${SYSSTAT_SRCS} ${SYSSTAT_CXX} ${SYSSTAT_QM_FILES})
+add_library(${SYSSTAT_LIBRARY_NAME} SHARED ${SYSSTAT_PUBLIC_HDRS} ${SYSSTAT_PRIVATE_HDRS} ${SYSSTAT_SRCS} ${SYSSTAT_QM_FILES})
 
 target_link_libraries(${SYSSTAT_LIBRARY_NAME}  Qt5::Core)
 
