@@ -2,16 +2,17 @@ cmake_minimum_required(VERSION 3.0.2 FATAL_ERROR)
 
 project(libsysstat)
 
-# Set default installation paths
-set(LIB_INSTALL_DIR "lib${LIB_SUFFIX}" CACHE PATH "Installation path for libraries")
-set(INCLUDE_INSTALL_DIR include CACHE PATH "Installation path for includes")
-
 set(MAJOR_VERSION 0)
 set(MINOR_VERSION 3)
 set(PATCH_VERSION 0)
 set(SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 
+# additional cmake files
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)             # Standard directories for installation
+include(create_pkgconfig_file)
 
 add_definitions(-DMAJOR_VERSION=${MAJOR_VERSION})
 add_definitions(-DMINOR_VERSION=${MINOR_VERSION})
@@ -80,7 +81,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 
-set(APP_SHARE_DIR "${CMAKE_INSTALL_PREFIX}/share/${SYSSTAT_LIBRARY_NAME}")
+set(APP_SHARE_DIR "${CMAKE_INSTALL_DATAROOTDIR}/${SYSSTAT_LIBRARY_NAME}")
 
 include_directories(..)
 #add_definitions(-DTRANSLATIONS_DIR=\"${APP_SHARE_DIR}\")
@@ -101,7 +102,7 @@ set_target_properties(${SYSSTAT_LIBRARY_NAME} PROPERTIES
 )
 
 target_include_directories(${SYSSTAT_LIBRARY_NAME}
-    INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/${SYSSTAT_LIBRARY_NAME}>"
+    INTERFACE "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${SYSSTAT_LIBRARY_NAME}>"
 )
 
 target_include_directories(${SYSSTAT_LIBRARY_NAME}
@@ -127,17 +128,17 @@ endforeach()
 
 install(TARGETS
     ${SYSSTAT_LIBRARY_NAME}
-    DESTINATION "${LIB_INSTALL_DIR}" EXPORT ${SYSSTAT_LIBRARY_NAME}-targets
+    DESTINATION "${CMAKE_INSTALL_LIBDIR}" EXPORT ${SYSSTAT_LIBRARY_NAME}-targets
 )
 
 install(FILES
     ${SYSSTAT_PUBLIC_HDRS}
-    DESTINATION "${INCLUDE_INSTALL_DIR}/${SYSSTAT_LIBRARY_NAME}"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${SYSSTAT_LIBRARY_NAME}"
 )
 
 install(FILES
     ${SYSSTAT_NAMESPACE_HEADERS}
-    DESTINATION "${INCLUDE_INSTALL_DIR}/${SYSSTAT_LIBRARY_NAME}/${HEADER_NAMESPACE}"
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${SYSSTAT_LIBRARY_NAME}/${HEADER_NAMESPACE}"
 )
 
 #install(FILES ${SYSSTAT_QM_FILES} DESTINATION "${APP_SHARE_DIR}")
@@ -147,17 +148,24 @@ export(TARGETS
     FILE "${CMAKE_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-targets.cmake"
 )
 
-include(cmake/create_pkgconfig_file.cmake)
-create_pkgconfig_file(${SYSSTAT_LIBRARY_NAME}
-    "SysStat, a Qt-based interface to system statistics"
+create_pkgconfig_file(
+    PACKAGE_NAME ${SYSSTAT_LIBRARY_NAME}
+    DESCRIPTIVE_NAME ${SYSSTAT_LIBRARY_NAME}
+    DESCRIPTION "SysStat, a Qt-based interface to system statistics"
+    INCLUDEDIRS ${SYSSTAT_LIBRARY_NAME}
+    LIBS ${SYSSTAT_LIBRARY_NAME}
+    REQUIRES "Qt5Core"
+    VERSION ${SYSSTAT_VERSION}
+    INSTALL
 )
+
 
 # cmake config file
 set(SYSSTAT_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/include/${SYSSTAT_LIBRARY_NAME}")
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/sysstat-config.cmake.in"
     "${CMAKE_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-config.cmake"
-    INSTALL_DESTINATION "share/cmake/${SYSSTAT_LIBRARY_NAME}"
+    INSTALL_DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/cmake/${SYSSTAT_LIBRARY_NAME}"
 )
 
 # cmake version config file
@@ -170,12 +178,12 @@ write_basic_package_version_file(
 install(FILES
     "${CMAKE_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-config.cmake"
     "${CMAKE_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-config-version.cmake"
-    DESTINATION "share/cmake/${SYSSTAT_LIBRARY_NAME}"
+    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/cmake/${SYSSTAT_LIBRARY_NAME}"
 )
 
 install(EXPORT
     ${SYSSTAT_LIBRARY_NAME}-targets
-    DESTINATION "share/cmake/${SYSSTAT_LIBRARY_NAME}"
+    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/cmake/${SYSSTAT_LIBRARY_NAME}"
 )
 
 # building tarball with CPack -------------------------------------------------
