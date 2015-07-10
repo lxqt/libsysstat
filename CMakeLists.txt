@@ -30,6 +30,7 @@ find_package(Qt5Core REQUIRED QUIET)
 
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(SYSSTAT_LIBRARY_NAME "sysstat-qt5")
 set(HEADER_NAMESPACE "SysStat")
@@ -83,7 +84,6 @@ endif()
 
 set(APP_SHARE_DIR "${CMAKE_INSTALL_DATAROOTDIR}/${SYSSTAT_LIBRARY_NAME}")
 
-include_directories(..)
 #add_definitions(-DTRANSLATIONS_DIR=\"${APP_SHARE_DIR}\")
 
 add_library(${SYSSTAT_LIBRARY_NAME}
