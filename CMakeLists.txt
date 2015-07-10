@@ -14,10 +14,6 @@ include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
 include(create_pkgconfig_file)
 
-add_definitions(-DMAJOR_VERSION=${MAJOR_VERSION})
-add_definitions(-DMINOR_VERSION=${MINOR_VERSION})
-add_definitions(-DPATCH_VERSION=${PATCH_VERSION})
-add_definitions(-DSYSSTAT_LIBRARY)
 
 # use gcc visibility feature to decrease unnecessary exported symbols
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -99,6 +95,13 @@ target_link_libraries(${SYSSTAT_LIBRARY_NAME} Qt5::Core)
 set_target_properties(${SYSSTAT_LIBRARY_NAME} PROPERTIES
     VERSION ${SYSSTAT_VERSION}
     SOVERSION ${MAJOR_VERSION}
+)
+
+target_compile_definitions(${SYSSTAT_LIBRARY_NAME}
+    PRIVATE "MAJOR_VERSION=${MAJOR_VERSION}"
+    PRIVATE "MINOR_VERSION=${MINOR_VERSION}"
+    PRIVATE "PATCH_VERSION=${PATCH_VERSION}"
+    PRIVATE "SYSSTAT_LIBRARY"
 )
 
 target_include_directories(${SYSSTAT_LIBRARY_NAME}
