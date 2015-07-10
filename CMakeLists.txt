@@ -25,7 +25,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 find_package(Qt5Core REQUIRED QUIET)
-find_package(Qt5LinguistTools REQUIRED QUIET)
+#find_package(Qt5LinguistTools REQUIRED QUIET)
 
 
 set(CMAKE_AUTOMOC ON)
@@ -67,12 +67,13 @@ set(SYSSTAT_SRCS
     netstat.cpp
 )
 
-# Translations
-file(GLOB SYSSTAT_TS_FILES
-    translations/*.ts
-)
-
-qt5_add_translation(SYSSTAT_QM_FILES ${SYSSTAT_TS_FILES})
+## Translations
+#file(GLOB SYSSTAT_TS_FILES
+#    translations/*.ts
+#)
+#
+#qt5_add_translation(SYSSTAT_QM_FILES ${SYSSTAT_TS_FILES})
+set(SYSSTAT_QM_FILES "")
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
@@ -82,7 +83,7 @@ endif()
 set(APP_SHARE_DIR "${CMAKE_INSTALL_PREFIX}/share/${SYSSTAT_LIBRARY_NAME}")
 
 include_directories(..)
-add_definitions(-DTRANSLATIONS_DIR=\"${APP_SHARE_DIR}\")
+#add_definitions(-DTRANSLATIONS_DIR=\"${APP_SHARE_DIR}\")
 
 add_library(${SYSSTAT_LIBRARY_NAME} SHARED ${SYSSTAT_PUBLIC_HDRS} ${SYSSTAT_PRIVATE_HDRS} ${SYSSTAT_SRCS} ${SYSSTAT_QM_FILES})
 
@@ -121,7 +122,7 @@ endforeach()
 install(TARGETS ${SYSSTAT_LIBRARY_NAME} DESTINATION "${LIB_INSTALL_DIR}" EXPORT ${SYSSTAT_LIBRARY_NAME}-targets)
 install(FILES ${SYSSTAT_PUBLIC_HDRS} DESTINATION "${INCLUDE_INSTALL_DIR}/${SYSSTAT_LIBRARY_NAME}")
 install(FILES ${SYSSTAT_NAMESPACE_HEADERS} DESTINATION "${INCLUDE_INSTALL_DIR}/${SYSSTAT_LIBRARY_NAME}/${HEADER_NAMESPACE}")
-install(FILES ${SYSSTAT_QM_FILES} DESTINATION "${APP_SHARE_DIR}")
+#install(FILES ${SYSSTAT_QM_FILES} DESTINATION "${APP_SHARE_DIR}")
 export(TARGETS ${SYSSTAT_LIBRARY_NAME} FILE "${CMAKE_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-targets.cmake")
 include(cmake/create_pkgconfig_file.cmake)
 create_pkgconfig_file(${SYSSTAT_LIBRARY_NAME} "SysStat, a Qt-based interface to system statistics")
