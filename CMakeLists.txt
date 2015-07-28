@@ -13,13 +13,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
 include(create_pkgconfig_file)
-
-
-# use gcc visibility feature to decrease unnecessary exported symbols
-if(CMAKE_COMPILER_IS_GNUCXX)
-    # set visibility to hidden to hide symbols, unlesss they're exporeted manually in the code
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -fno-exceptions -Wall")
-endif()
+include(LXQtCompilerSettings)
 
 find_package(Qt5Core REQUIRED QUIET)
 #find_package(Qt5LinguistTools REQUIRED QUIET)
