@@ -13,7 +13,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
 include(create_pkgconfig_file)
-include(LXQtCompilerSettings)
+include(LXQtCompilerSettings NO_POLICY_SCOPE)
 
 find_package(Qt5Core REQUIRED QUIET)
 #find_package(Qt5LinguistTools REQUIRED QUIET)
