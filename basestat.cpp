@@ -122,7 +122,7 @@ QString BaseStatPrivate::readAllFile(const char *filename)
     static char buffer[bufferSize];
 
     int fd = ::open(filename, O_RDONLY);
-    if (fd > 0)
+    if (fd > -1)
     {
         ssize_t size = ::read(fd, buffer, bufferSize);
         ::close(fd);
