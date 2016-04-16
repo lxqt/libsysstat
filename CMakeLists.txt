@@ -161,7 +161,7 @@ configure_package_config_file(
 # cmake version config file
 write_basic_package_version_file(
     "${CMAKE_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-config-version.cmake"
-    VERSION ${MAJOR}.${MINOR}.${PATCH}
+    VERSION ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}
     COMPATIBILITY AnyNewerVersion
 )
 
