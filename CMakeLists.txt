@@ -4,7 +4,7 @@ project(libsysstat)
 
 set(MAJOR_VERSION 0)
 set(MINOR_VERSION 3)
-set(PATCH_VERSION 1)
+set(PATCH_VERSION 2)
 set(SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 
 # additional cmake files
