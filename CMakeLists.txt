@@ -18,6 +18,7 @@ find_package(lxqt-build-tools ${LXQTBT_MINIMUM_VERSION} REQUIRED)
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
 include(create_pkgconfig_file)
+include(LXQtCreatePortableHeaders)
 include(LXQtCompilerSettings NO_POLICY_SCOPE)
 
 set(CMAKE_AUTOMOC ON)
@@ -99,11 +100,9 @@ target_include_directories(${SYSSTAT_LIBRARY_NAME}
     INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/include/${SYSSTAT_LIBRARY_NAME}>"
 )
 
-include(cmake/create_portable_headers.cmake)
-
-create_portable_headers(SYSSTAT_NAMESPACE_HEADERS
-    NAMESPACE "${HEADER_NAMESPACE}/"
-    FILENAMES ${SYSSTAT_PUBLIC_CLASSES}
+lxqt_create_portable_headers(SYSSTAT_NAMESPACE_HEADERS
+    PATH_PREFIX ".."
+    HEADER_NAMES ${SYSSTAT_PUBLIC_CLASSES}
 )
 
 foreach(h ${SYSSTAT_NAMESPACE_HEADERS})
