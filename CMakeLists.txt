@@ -17,7 +17,7 @@ find_package(lxqt-build-tools ${LXQTBT_MINIMUM_VERSION} REQUIRED)
 
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
-include(create_pkgconfig_file)
+include(LXQtCreatePkgConfigFile)
 include(LXQtCreatePortableHeaders)
 include(LXQtCompilerSettings NO_POLICY_SCOPE)
 
@@ -140,7 +140,7 @@ export(TARGETS
     FILE "${CMAKE_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-targets.cmake"
 )
 
-create_pkgconfig_file(
+lxqt_create_pkgconfig_file(
     PACKAGE_NAME ${SYSSTAT_LIBRARY_NAME}
     DESCRIPTIVE_NAME ${SYSSTAT_LIBRARY_NAME}
     DESCRIPTION "SysStat, a Qt-based interface to system statistics"
