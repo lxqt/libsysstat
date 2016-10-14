@@ -7,15 +7,19 @@ set(MINOR_VERSION 3)
 set(PATCH_VERSION 2)
 set(SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 
+set(LXQTBT_MINIMUM_VERSION "0.1.0")
+
 # additional cmake files
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+find_package(Qt5Core REQUIRED QUIET)
+find_package(lxqt-build-tools ${LXQTBT_MINIMUM_VERSION} REQUIRED)
+
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
-include(create_pkgconfig_file)
+include(LXQtCreatePkgConfigFile)
+include(LXQtCreatePortableHeaders)
 include(LXQtCompilerSettings NO_POLICY_SCOPE)
-
-find_package(Qt5Core REQUIRED QUIET)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -96,11 +100,9 @@ target_include_directories(${SYSSTAT_LIBRARY_NAME}
     INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_FILES_DIRECTORY}/include/${SYSSTAT_LIBRARY_NAME}>"
 )
 
-include(cmake/create_portable_headers.cmake)
-
-create_portable_headers(SYSSTAT_NAMESPACE_HEADERS
-    NAMESPACE "${HEADER_NAMESPACE}/"
-    FILENAMES ${SYSSTAT_PUBLIC_CLASSES}
+lxqt_create_portable_headers(SYSSTAT_NAMESPACE_HEADERS
+    PATH_PREFIX ".."
+    HEADER_NAMES ${SYSSTAT_PUBLIC_CLASSES}
 )
 
 foreach(h ${SYSSTAT_NAMESPACE_HEADERS})
@@ -138,7 +140,7 @@ export(TARGETS
     FILE "${CMAKE_BINARY_DIR}/${SYSSTAT_LIBRARY_NAME}-targets.cmake"
 )
 
-create_pkgconfig_file(
+lxqt_create_pkgconfig_file(
     PACKAGE_NAME ${SYSSTAT_LIBRARY_NAME}
     DESCRIPTIVE_NAME ${SYSSTAT_LIBRARY_NAME}
     DESCRIPTION "SysStat, a Qt-based interface to system statistics"
