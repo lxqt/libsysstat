@@ -12,7 +12,7 @@ Note replacing both libsysstat and libstatgrab in LXQt by KDE Frameworks compone
 
 ### Sources
 
-The only runtime dependency is qtbase. To build CMake is needed in addition, as well as optionally Git to pull latest VCS checkouts.
+The only runtime dependency is qtbase. To build CMake and [lxqt-build-tools](https://github.com/lxde/lxqt-build-tools) are needed in addition, as well as optionally Git to pull latest VCS checkouts.
 
 Code configuration is handled by CMake. CMake variable `CMAKE_INSTALL_PREFIX` will normally have to be set to `/usr`, depending on the way library paths are dealt with on 64bit systems variables like `CMAKE_INSTALL_LIBDIR` may have to be set as well.
 
