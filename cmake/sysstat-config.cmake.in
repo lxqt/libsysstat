@@ -14,8 +14,7 @@ set(SYSSTAT_VERSION       @SYSSTAT_VERSION@)
 
 include(CMakeFindDependencyMacro)
 
-find_dependency(Qt5Core REQUIRED QUIET)
-find_dependency(Qt5LinguistTools REQUIRED QUIET)
+find_dependency(Qt5Core @QT_MINIMUM_VERSION@)
 
 if (CMAKE_VERSION VERSION_GREATER 2.8.12)
     cmake_policy(SET CMP0024 OLD)

@@ -8,12 +8,13 @@ set(PATCH_VERSION 2)
 set(SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 
 set(LXQTBT_MINIMUM_VERSION "0.1.0")
+set(QT_MINIMUM_VERSION "5.4.2")
 
 # additional cmake files
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-find_package(Qt5Core REQUIRED QUIET)
 find_package(lxqt-build-tools ${LXQTBT_MINIMUM_VERSION} REQUIRED)
+find_package(Qt5Core ${QT_MINIMUM_VERSION} REQUIRED)
 
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
