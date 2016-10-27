@@ -15,6 +15,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 find_package(lxqt-build-tools ${LXQTBT_MINIMUM_VERSION} REQUIRED)
 find_package(Qt5Core ${QT_MINIMUM_VERSION} REQUIRED)
+message(STATUS "Building ${PROJECT_NAME} with Qt ${Qt5Core_VERSION_STRING}")
 
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
