@@ -1,7 +1,21 @@
 
-libsysstat-0.3.2 / 2016-09-17
+libsysstat-0.3.3 / 2016-12-11
 =============================
 
+  * Bump patch version to 3
+  * Simplify include_directories and compile definitions
+  * Adds Building project name and Qt version message
+  * Adds a minimum Qt minimum version requirement
+  * README.md: Add build dependency lxqt-build-tools
+  * Use the lxqt-build-tools LXQtCreatePkgConfigFile
+  * Use the lxqt-build-tools LXQtCreatePortableHeaders module
+  * Use the new lxqt-build-tools package
+  * Remove cpack (#14)
+
+0.3.2 / 2016-09-17
+==================
+
+  * Release 0.3.2: Add changelog
   * Bump version to 0.3.2
   * Add README.md
   * fixes lxde/libsysstat/issues/11
