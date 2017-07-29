@@ -3,11 +3,11 @@ cmake_minimum_required(VERSION 3.0.2 FATAL_ERROR)
 project(libsysstat)
 
 set(MAJOR_VERSION 0)
-set(MINOR_VERSION 3)
-set(PATCH_VERSION 3)
+set(MINOR_VERSION 4)
+set(PATCH_VERSION 0)
 set(SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 
-set(LXQTBT_MINIMUM_VERSION "0.1.0")
+set(LXQTBT_MINIMUM_VERSION "0.4.0")
 set(QT_MINIMUM_VERSION "5.4.2")
 
 # additional cmake files
