@@ -68,7 +68,7 @@ libsysstat-0.3.3 / 2016-12-11
   * Allow installation path configuration with standard CMake X_INSTALL_DIR
   * Retain old CMAKE_CXX_FLAGS while setting visibility.
   * Install cmake files.
-  * Use gcc visibility to avoid unecessary symbol exports.
+  * Use gcc visibility to avoid unnecessary symbol exports.
   * Make the lib buildable independently. Fix AUTHORS file.
   * Add COPYING and AUTHORS files
   * libraries: Removes unneeded include(RazorLibSuffix)
