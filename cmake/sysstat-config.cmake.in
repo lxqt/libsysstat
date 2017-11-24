@@ -15,8 +15,9 @@ set(SYSSTAT_VERSION       @SYSSTAT_VERSION@)
 include(CMakeFindDependencyMacro)
 
 find_dependency(Qt5Core @QT_MINIMUM_VERSION@)
-
-if (CMAKE_VERSION VERSION_GREATER 2.8.12)
-    cmake_policy(SET CMP0024 OLD)
+if (NOT TARGET @SYSSTAT_LIBRARY_NAME@)
+    if (POLICY CMP0024)
+        cmake_policy(SET CMP0024 NEW)
+    endif()
+    include("${CMAKE_CURRENT_LIST_DIR}/@SYSSTAT_LIBRARY_NAME@-targets.cmake")
 endif()
-include("${CMAKE_CURRENT_LIST_DIR}/@SYSSTAT_LIBRARY_NAME@-targets.cmake")
