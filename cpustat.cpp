@@ -62,7 +62,8 @@ void CpuStatPrivate::updateSources()
 {
     mSources.clear();
 
-    foreach (const QString &row, readAllFile("/proc/stat").split(QChar('\n'), QString::SkipEmptyParts))
+    const QStringList rows = readAllFile("/proc/stat").split(QChar('\n'), QString::SkipEmptyParts);
+    for (const QString &row : rows)
     {
         QStringList tokens = row.split(QChar(' '), QString::SkipEmptyParts);
         if( (tokens.size() < 5)
@@ -76,7 +77,8 @@ void CpuStatPrivate::updateSources()
 
     bool ok;
 
-    foreach (const QString &range, readAllFile("/sys/devices/system/cpu/online").split(QChar(','), QString::SkipEmptyParts))
+    const QStringList ranges = readAllFile("/sys/devices/system/cpu/online").split(QChar(','), QString::SkipEmptyParts);
+    for (const QString &range : ranges)
     {
         int dash = range.indexOf('-');
         if (dash != -1)
@@ -128,7 +130,8 @@ void CpuStatPrivate::timeout()
     if ( (mMonitoring == CpuStat::LoadOnly)
       || (mMonitoring == CpuStat::LoadAndFrequency) )
     {
-        foreach (const QString &row, readAllFile("/proc/stat").split(QChar('\n'), QString::SkipEmptyParts))
+        const QStringList rows = readAllFile("/proc/stat").split(QChar('\n'), QString::SkipEmptyParts);
+        for (const QString &row : rows)
         {
             if (!row.startsWith("cpu"))
                 continue;

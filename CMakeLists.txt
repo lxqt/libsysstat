@@ -8,7 +8,7 @@ set(PATCH_VERSION 0)
 set(SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 
 set(LXQTBT_MINIMUM_VERSION "0.4.0")
-set(QT_MINIMUM_VERSION "5.4.2")
+set(QT_MINIMUM_VERSION "5.7.1")
 
 # additional cmake files
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -93,6 +93,7 @@ target_compile_definitions(${SYSSTAT_LIBRARY_NAME}
         "MINOR_VERSION=${MINOR_VERSION}"
         "PATCH_VERSION=${PATCH_VERSION}"
         "SYSSTAT_LIBRARY"
+        "QT_NO_FOREACH"
 )
 
 target_include_directories(${SYSSTAT_LIBRARY_NAME}
