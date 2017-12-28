@@ -53,7 +53,8 @@ void MemStatPrivate::timeout()
     qulonglong swapTotal = 0;
     qulonglong swapFree = 0;
 
-    foreach (const QString &row, readAllFile("/proc/meminfo").split(QChar('\n'), QString::SkipEmptyParts))
+    const QStringList rows = readAllFile("/proc/meminfo").split(QChar('\n'), QString::SkipEmptyParts);
+    for (const QString &row : rows)
     {
         QStringList tokens = row.split(QChar(' '), QString::SkipEmptyParts);
         if (tokens.size() != 3)
