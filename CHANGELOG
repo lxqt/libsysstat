@@ -30,7 +30,7 @@ libsysstat-0.4.0 / 2017-09-23
   * Release 0.3.2: Add changelog
   * Bump version to 0.3.2
   * Add README.md
-  * fixes lxde/libsysstat/issues/11
+  * fixes lxqt/libsysstat/issues/11
   * Bump year and change listed licenses
   * Fix rare file descriptor leak in readAllFile()
 
@@ -88,7 +88,7 @@ libsysstat-0.4.0 / 2017-09-23
   * libraries: Removes unneeded find_package(Qt4)
   * Style follows the Coding Standard
   * Sysstat lib: version number functions renamed to avoid conflicts
-  * SysStat: license updated & unused files removed
+  * SysStat: license updated & unused files removed
   * Time zone list built from ICU
   * SysStat lib: Better CPU stat handling (possible fix for issue #480)
   * Revert "Sysstat lib: default c-tors fixed (issue #480)"

@@ -31,5 +31,5 @@
 * Kernel: 
 * Qt Version: 
 * libqtxdg Version:
-* lxde-build-tools Version: 
+* lxqt-build-tools Version: 
 * Package version: 
