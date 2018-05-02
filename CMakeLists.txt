@@ -7,7 +7,7 @@ set(MINOR_VERSION 4)
 set(PATCH_VERSION 0)
 set(SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 
-set(LXQTBT_MINIMUM_VERSION "0.4.1")
+set(LXQTBT_MINIMUM_VERSION "0.5.0")
 set(QT_MINIMUM_VERSION "5.7.1")
 
 # additional cmake files
@@ -19,6 +19,7 @@ message(STATUS "Building ${PROJECT_NAME} with Qt ${Qt5Core_VERSION}")
 
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
+include(LXQtPreventInSourceBuilds)
 include(LXQtCreatePkgConfigFile)
 include(LXQtCreatePortableHeaders)
 include(LXQtCompilerSettings NO_POLICY_SCOPE)
