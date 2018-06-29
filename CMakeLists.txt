@@ -94,7 +94,6 @@ target_compile_definitions(${SYSSTAT_LIBRARY_NAME}
         "MINOR_VERSION=${MINOR_VERSION}"
         "PATCH_VERSION=${PATCH_VERSION}"
         "SYSSTAT_LIBRARY"
-        "QT_NO_FOREACH"
 )
 
 target_include_directories(${SYSSTAT_LIBRARY_NAME}
