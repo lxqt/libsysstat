@@ -94,6 +94,11 @@ target_compile_definitions(${SYSSTAT_LIBRARY_NAME}
         "MINOR_VERSION=${MINOR_VERSION}"
         "PATCH_VERSION=${PATCH_VERSION}"
         "SYSSTAT_LIBRARY"
+        "QT_USE_QSTRINGBUILDER"
+        "QT_NO_CAST_FROM_ASCII"
+        "QT_NO_CAST_TO_ASCII"
+        "QT_NO_URL_CAST_FROM_STRING"
+        "QT_NO_CAST_FROM_BYTEARRAY"
 )
 
 target_include_directories(${SYSSTAT_LIBRARY_NAME}

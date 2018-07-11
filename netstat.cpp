@@ -38,13 +38,13 @@ NetStatPrivate::NetStatPrivate(NetStat *parent)
     connect(mTimer, SIGNAL(timeout()), SLOT(timeout()));
 
 
-    QStringList rows(readAllFile("/proc/net/dev").split(QChar('\n'), QString::SkipEmptyParts));
+    QStringList rows(readAllFile("/proc/net/dev").split(QLatin1Char('\n'), QString::SkipEmptyParts));
 
     rows.erase(rows.begin(), rows.begin() + 2);
 
     for (const QString &row : qAsConst(rows))
     {
-        QStringList tokens = row.split(QChar(':'), QString::SkipEmptyParts);
+        QStringList tokens = row.split(QLatin1Char(':'), QString::SkipEmptyParts);
         if (tokens.size() != 2)
             continue;
 
@@ -58,31 +58,31 @@ NetStatPrivate::~NetStatPrivate()
 
 void NetStatPrivate::timeout()
 {
-    QStringList rows(readAllFile("/proc/net/dev").split(QChar('\n'), QString::SkipEmptyParts));
+    QStringList rows(readAllFile("/proc/net/dev").split(QLatin1Char('\n'), QString::SkipEmptyParts));
 
 
     if (rows.size() < 2)
         return;
 
-    QStringList names = rows[1].split(QChar('|'));
+    QStringList names = rows[1].split(QLatin1Char('|'));
     if (names.size() != 3)
         return;
-    QStringList namesR = names[1].split(QChar(' '), QString::SkipEmptyParts);
-    QStringList namesT = names[2].split(QChar(' '), QString::SkipEmptyParts);
-    int receivedIndex    =                 namesR.indexOf("bytes");
-    int transmittedIndex = namesR.size() + namesT.indexOf("bytes");
+    QStringList namesR = names[1].split(QLatin1Char(' '), QString::SkipEmptyParts);
+    QStringList namesT = names[2].split(QLatin1Char(' '), QString::SkipEmptyParts);
+    int receivedIndex    =                 namesR.indexOf(QLatin1String("bytes"));
+    int transmittedIndex = namesR.size() + namesT.indexOf(QLatin1String("bytes"));
 
     rows.erase(rows.begin(), rows.begin() + 2);
 
     for (const QString &row : qAsConst(rows))
     {
-        QStringList tokens = row.split(QChar(':'), QString::SkipEmptyParts);
+        QStringList tokens = row.split(QLatin1Char(':'), QString::SkipEmptyParts);
         if (tokens.size() != 2)
             continue;
 
         QString interfaceName = tokens[0].trimmed();
 
-        QStringList data = tokens[1].split(QChar(' '), QString::SkipEmptyParts);
+        QStringList data = tokens[1].split(QLatin1Char(' '), QString::SkipEmptyParts);
         if (data.size() < transmittedIndex)
             continue;
 
@@ -103,7 +103,7 @@ void NetStatPrivate::timeout()
 
 QString NetStatPrivate::defaultSource()
 {
-    return "lo";
+    return QLatin1String("lo");
 }
 
 NetStatPrivate::Values::Values()

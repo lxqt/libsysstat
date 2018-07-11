@@ -34,7 +34,7 @@ namespace version {
 
 QString verbose()
 {
-    return QString("%1.%2.%3").arg(MAJOR_VERSION_STR).arg(MINOR_VERSION_STR).arg(PATCH_VERSION_STR);
+    return QString::fromLatin1("%1.%2.%3").arg(QLatin1String(MAJOR_VERSION_STR)).arg(QLatin1String(MINOR_VERSION_STR)).arg(QLatin1String(PATCH_VERSION_STR));
 }
 
 int majorNumber()
