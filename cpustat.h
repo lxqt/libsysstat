@@ -47,7 +47,7 @@ public:
     enum Monitoring { LoadAndFrequency, LoadOnly, FrequencyOnly };
 
 public:
-    CpuStat(QObject *parent = NULL);
+    CpuStat(QObject *parent = nullptr);
     ~CpuStat();
 
     void updateSources();

@@ -44,7 +44,7 @@ class CpuStatPrivate : public BaseStatPrivate
     Q_OBJECT
 
 public:
-    CpuStatPrivate(CpuStat *parent = NULL);
+    CpuStatPrivate(CpuStat *parent = nullptr);
     ~CpuStatPrivate();
 
     void updateSources();

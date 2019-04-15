@@ -42,7 +42,7 @@ class SYSSTATSHARED_EXPORT MemStat : public BaseStat
     Q_OBJECT
 
 public:
-    MemStat(QObject *parent = NULL);
+    MemStat(QObject *parent = nullptr);
     ~MemStat();
 
 signals:

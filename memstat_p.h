@@ -42,7 +42,7 @@ class MemStatPrivate : public BaseStatPrivate
     Q_OBJECT
 
 public:
-    MemStatPrivate(MemStat *parent = NULL);
+    MemStatPrivate(MemStat *parent = nullptr);
     ~MemStatPrivate();
 
 signals:
