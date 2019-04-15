@@ -43,7 +43,7 @@ class SYSSTATSHARED_EXPORT NetStat : public BaseStat
 
 public:
     NetStat(QObject *parent = nullptr);
-    ~NetStat();
+    ~NetStat() override;
 
 signals:
     void update(unsigned received, unsigned transmitted);

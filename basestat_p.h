@@ -45,7 +45,7 @@ class BaseStatPrivate : public QObject
 
 public:
     BaseStatPrivate(BaseStat *parent = nullptr);
-    ~BaseStatPrivate();
+    ~BaseStatPrivate() override;
 
     QStringList sources() const;
 

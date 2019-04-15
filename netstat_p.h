@@ -44,7 +44,7 @@ class NetStatPrivate : public BaseStatPrivate
 
 public:
     NetStatPrivate(NetStat *parent = nullptr);
-    ~NetStatPrivate();
+    ~NetStatPrivate() override;
 
 signals:
     void update(unsigned received, unsigned transmitted);
@@ -53,7 +53,7 @@ private slots:
     void timeout();
 
 private:
-    QString defaultSource();
+    QString defaultSource() override;
 
     typedef struct Values
     {

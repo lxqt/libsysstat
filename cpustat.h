@@ -48,7 +48,7 @@ public:
 
 public:
     CpuStat(QObject *parent = nullptr);
-    ~CpuStat();
+    ~CpuStat() override;
 
     void updateSources();
 

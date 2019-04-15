@@ -45,7 +45,7 @@ class SYSSTATSHARED_EXPORT BaseStat : public QObject
 
 public:
     BaseStat(QObject *parent = nullptr);
-    ~BaseStat();
+    ~BaseStat() override;
 
     QStringList sources() const;
 

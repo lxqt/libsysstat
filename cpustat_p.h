@@ -45,7 +45,7 @@ class CpuStatPrivate : public BaseStatPrivate
 
 public:
     CpuStatPrivate(CpuStat *parent = nullptr);
-    ~CpuStatPrivate();
+    ~CpuStatPrivate() override;
 
     void updateSources();
 
@@ -64,11 +64,11 @@ private slots:
     void timeout();
 
 protected:
-    void intervalChanged();
-    void sourceChanged();
+    void intervalChanged() override;
+    void sourceChanged() override;
 
 private:
-    QString defaultSource();
+    QString defaultSource() override;
 
     typedef struct Values
     {
