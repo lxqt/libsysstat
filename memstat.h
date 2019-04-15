@@ -43,7 +43,7 @@ class SYSSTATSHARED_EXPORT MemStat : public BaseStat
 
 public:
     MemStat(QObject *parent = nullptr);
-    ~MemStat();
+    ~MemStat() override;
 
 signals:
     void memoryUpdate(float apps, float buffers, float cached);

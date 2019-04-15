@@ -43,7 +43,7 @@ class MemStatPrivate : public BaseStatPrivate
 
 public:
     MemStatPrivate(MemStat *parent = nullptr);
-    ~MemStatPrivate();
+    ~MemStatPrivate() override;
 
 signals:
     void memoryUpdate(float apps, float buffers, float cached);
@@ -53,7 +53,7 @@ private slots:
     void timeout();
 
 private:
-    QString defaultSource();
+    QString defaultSource() override;
 };
 
 }
