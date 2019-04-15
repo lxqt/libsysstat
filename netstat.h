@@ -42,7 +42,7 @@ class SYSSTATSHARED_EXPORT NetStat : public BaseStat
     Q_OBJECT
 
 public:
-    NetStat(QObject *parent = NULL);
+    NetStat(QObject *parent = nullptr);
     ~NetStat();
 
 signals:

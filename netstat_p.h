@@ -43,7 +43,7 @@ class NetStatPrivate : public BaseStatPrivate
     Q_OBJECT
 
 public:
-    NetStatPrivate(NetStat *parent = NULL);
+    NetStatPrivate(NetStat *parent = nullptr);
     ~NetStatPrivate();
 
 signals:
