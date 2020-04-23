@@ -1,9 +1,15 @@
+libsysstat-0.4.3 / 2020-04-22
+=============================
+  * Bumped version to 0.4.3.
+  * C++11 code updates.
+  * Removed (duplicated) string casts definitions.
+
 libsysstat-0.4.2 / 2019-01-25
 =============================
 
   * Bumped version to 0.4.2
   * Improved cmake scripting and set cmake_minimum_required to 3.1.0
-  * Don't use automatic string conversions 
+  * Don't use automatic string conversions
   * Removes local compile definition
 
 libsysstat-0.4.1 / 2018-05-21
@@ -108,7 +114,7 @@ libsysstat-0.4.1 / 2018-05-21
   * libraries: Removes unneeded find_package(Qt4)
   * Style follows the Coding Standard
   * Sysstat lib: version number functions renamed to avoid conflicts
-  * SysStat: license updated & unused files removed
+  * SysStat: license updated & unused files removed
   * Time zone list built from ICU
   * SysStat lib: Better CPU stat handling (possible fix for issue #480)
   * Revert "Sysstat lib: default c-tors fixed (issue #480)"
