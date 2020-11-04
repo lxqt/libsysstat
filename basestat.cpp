@@ -46,9 +46,7 @@ BaseStatPrivate::BaseStatPrivate(BaseStat* parent)
     connect(mSynchroTimer, SIGNAL(timeout()), SLOT(synchroTimeout()));
 }
 
-BaseStatPrivate::~BaseStatPrivate()
-{
-}
+BaseStatPrivate::~BaseStatPrivate() = default;
 
 bool BaseStatPrivate::timerIsActive() const
 {
@@ -143,9 +141,7 @@ BaseStat::BaseStat(QObject *parent)
 {
 }
 
-BaseStat::~BaseStat()
-{
-}
+BaseStat::~BaseStat() = default;
 
 QStringList BaseStat::sources() const
 {

@@ -52,9 +52,7 @@ NetStatPrivate::NetStatPrivate(NetStat *parent)
     }
 }
 
-NetStatPrivate::~NetStatPrivate()
-{
-}
+NetStatPrivate::~NetStatPrivate() = default;
 
 void NetStatPrivate::timeout()
 {
@@ -121,8 +119,6 @@ NetStat::NetStat(QObject *parent)
     connect(impl, SIGNAL(update(unsigned,unsigned)), this, SIGNAL(update(unsigned,unsigned)));
 }
 
-NetStat::~NetStat()
-{
-}
+NetStat::~NetStat() = default;
 
 }

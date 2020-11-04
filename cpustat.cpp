@@ -101,9 +101,7 @@ void CpuStatPrivate::updateSources()
     }
 }
 
-CpuStatPrivate::~CpuStatPrivate()
-{
-}
+CpuStatPrivate::~CpuStatPrivate() = default;
 
 void CpuStatPrivate::intervalChanged()
 {
@@ -310,9 +308,7 @@ CpuStat::CpuStat(QObject *parent)
     connect(impl, SIGNAL(update(uint)), this, SIGNAL(update(uint)));
 }
 
-CpuStat::~CpuStat()
-{
-}
+CpuStat::~CpuStat() = default;
 
 void CpuStat::updateSources()
 {
