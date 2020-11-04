@@ -40,9 +40,7 @@ MemStatPrivate::MemStatPrivate(MemStat *parent)
     mSources << QLatin1String("memory") << QLatin1String("swap");
 }
 
-MemStatPrivate::~MemStatPrivate()
-{
-}
+MemStatPrivate::~MemStatPrivate() = default;
 
 void MemStatPrivate::timeout()
 {
@@ -112,8 +110,6 @@ MemStat::MemStat(QObject *parent)
     connect(impl, SIGNAL(swapUpdate(float)), this, SIGNAL(swapUpdate(float)));
 }
 
-MemStat::~MemStat()
-{
-}
+MemStat::~MemStat() = default;
 
 }
