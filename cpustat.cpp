@@ -47,7 +47,7 @@ CpuStatPrivate::CpuStatPrivate(CpuStat *parent)
 
 void CpuStatPrivate::addSource(const QString &source)
 {
-    bool ok;
+    bool ok = false;
 
     uint min = readAllFile(qPrintable(QString::fromLatin1("/sys/devices/system/cpu/%1/cpufreq/scaling_min_freq").arg(source))).toUInt(&ok);
     if (ok)
@@ -75,7 +75,7 @@ void CpuStatPrivate::updateSources()
 
     mBounds.clear();
 
-    bool ok;
+    bool ok = false;
 
     const QStringList ranges = readAllFile("/sys/devices/system/cpu/online").split(QLatin1Char(','), QString::SkipEmptyParts);
     for (const QString &range : ranges)
@@ -171,7 +171,7 @@ void CpuStatPrivate::timeout()
                         float freqRate = 1.0;
                         uint freq = 0;
 
-                        bool ok;
+                        bool ok = false;
 
                         if (mSource == QLatin1String("cpu"))
                         {
@@ -233,7 +233,7 @@ void CpuStatPrivate::timeout()
     }
     else
     {
-        bool ok;
+        bool ok = false;
         uint freq = 0;
 
         if (mSource == QLatin1String("cpu"))
