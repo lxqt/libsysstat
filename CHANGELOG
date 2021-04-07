@@ -1,3 +1,9 @@
+libsysstat-0.4.5 / 2021-04-15
+=============================
+  * Initialized some variables.
+  * Used "= default" to define trivial destructors.
+  * Handled Qt5.15's deprecations.
+
 libsysstat-0.4.4 / 2020-11-01
 =============================
   * Bumped version to 0.4.4.
