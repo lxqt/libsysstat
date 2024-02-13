@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5.0 FATAL_ERROR)
 # CMP0000: Call the cmake_minimum_required() command at the beginning of the top-level
 # CMakeLists.txt file even before calling the project() command.
 # The cmake_minimum_required(VERSION) command implicitly invokes the cmake_policy(VERSION)
@@ -6,20 +6,20 @@ cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
 # versions.
 project(libsysstat)
 
-set(MAJOR_VERSION 0)
-set(MINOR_VERSION 4)
-set(PATCH_VERSION 6)
+set(MAJOR_VERSION 1)
+set(MINOR_VERSION 0)
+set(PATCH_VERSION 0)
 set(SYSSTAT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 
-set(LXQTBT_MINIMUM_VERSION "0.10.0")
-set(QT_MINIMUM_VERSION "5.15.0")
+set(LXQTBT_MINIMUM_VERSION "2.0.0")
+set(QT_MINIMUM_VERSION "6.6.0")
 
 # additional cmake files
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 find_package(lxqt-build-tools ${LXQTBT_MINIMUM_VERSION} REQUIRED)
-find_package(Qt5Core ${QT_MINIMUM_VERSION} REQUIRED)
-message(STATUS "Building ${PROJECT_NAME} with Qt ${Qt5Core_VERSION}")
+find_package(Qt6Core ${QT_MINIMUM_VERSION} REQUIRED)
+message(STATUS "Building ${PROJECT_NAME} with Qt ${Qt6Core_VERSION}")
 
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)             # Standard directories for installation
@@ -31,7 +31,7 @@ include(LXQtCompilerSettings NO_POLICY_SCOPE)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(SYSSTAT_LIBRARY_NAME "sysstat-qt5")
+set(SYSSTAT_LIBRARY_NAME "sysstat-qt6")
 set(HEADER_NAMESPACE "SysStat")
 
 set(SYSSTAT_PUBLIC_HDRS
@@ -80,7 +80,7 @@ add_library(${SYSSTAT_LIBRARY_NAME}
         ${SYSSTAT_QM_FILES}
 )
 
-target_link_libraries(${SYSSTAT_LIBRARY_NAME} Qt5::Core)
+target_link_libraries(${SYSSTAT_LIBRARY_NAME} Qt6::Core)
 
 set_target_properties(${SYSSTAT_LIBRARY_NAME} PROPERTIES
     VERSION ${SYSSTAT_VERSION}
@@ -147,7 +147,7 @@ lxqt_create_pkgconfig_file(
     DESCRIPTION "SysStat, a Qt-based interface to system statistics"
     INCLUDEDIRS ${SYSSTAT_LIBRARY_NAME}
     LIBS ${SYSSTAT_LIBRARY_NAME}
-    REQUIRES "Qt5Core"
+    REQUIRES "Qt6Core"
     VERSION ${SYSSTAT_VERSION}
     INSTALL
 )

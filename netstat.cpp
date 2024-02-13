@@ -42,7 +42,7 @@ NetStatPrivate::NetStatPrivate(NetStat *parent)
 
     rows.erase(rows.begin(), rows.begin() + 2);
 
-    for (const QString &row : qAsConst(rows))
+    for (const QString &row : std::as_const(rows))
     {
         QStringList tokens = row.split(QLatin1Char(':'), Qt::SkipEmptyParts);
         if (tokens.size() != 2)
@@ -72,7 +72,7 @@ void NetStatPrivate::timeout()
 
     rows.erase(rows.begin(), rows.begin() + 2);
 
-    for (const QString &row : qAsConst(rows))
+    for (const QString &row : std::as_const(rows))
     {
         QStringList tokens = row.split(QLatin1Char(':'), Qt::SkipEmptyParts);
         if (tokens.size() != 2)
