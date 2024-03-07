@@ -82,10 +82,10 @@ void CpuStatPrivate::updateSources()
         int dash = range.indexOf(QLatin1Char('-'));
         if (dash != -1)
         {
-            uint min = range.left(dash).toUInt(&ok);
+            uint min = range.first(dash).toUInt(&ok);
             if (ok)
             {
-                uint max = range.mid(dash + 1).toUInt(&ok);
+                uint max = range.sliced(dash + 1, range.size() - dash - 1).toUInt(&ok);
                 if (ok)
                     for (uint number = min; number <= max; ++number)
                         addSource(QString::fromLatin1("cpu%1").arg(number));
