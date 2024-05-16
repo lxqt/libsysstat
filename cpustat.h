@@ -41,14 +41,12 @@ class SYSSTATSHARED_EXPORT CpuStat : public BaseStat
 {
     Q_OBJECT
 
-    Q_ENUMS(Monitoring)
-
-public:
-    enum Monitoring { LoadAndFrequency, LoadOnly, FrequencyOnly };
-
 public:
     CpuStat(QObject *parent = nullptr);
     ~CpuStat() override;
+
+    enum Monitoring { LoadAndFrequency, LoadOnly, FrequencyOnly };
+    Q_ENUM(Monitoring)
 
     void updateSources();
 
