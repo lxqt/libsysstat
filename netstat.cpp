@@ -40,7 +40,7 @@ NetStatPrivate::NetStatPrivate(NetStat *parent)
 
     QStringList rows(readAllFile("/proc/net/dev").split(QLatin1Char('\n'), Qt::SkipEmptyParts));
 
-    rows.erase(rows.begin(), rows.begin() + 2);
+    rows.erase(rows.cbegin(), rows.cbegin() + 2);
 
     for (const QString &row : std::as_const(rows))
     {
@@ -70,7 +70,7 @@ void NetStatPrivate::timeout()
     int receivedIndex    =                 namesR.indexOf(QLatin1String("bytes"));
     int transmittedIndex = namesR.size() + namesT.indexOf(QLatin1String("bytes"));
 
-    rows.erase(rows.begin(), rows.begin() + 2);
+    rows.erase(rows.cbegin(), rows.cbegin() + 2);
 
     for (const QString &row : std::as_const(rows))
     {
