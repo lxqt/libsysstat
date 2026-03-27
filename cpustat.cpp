@@ -29,6 +29,7 @@
 #include "cpustat.h"
 #include "cpustat_p.h"
 
+using namespace Qt::Literals::StringLiterals;
 
 namespace SysStat {
 
@@ -49,10 +50,10 @@ void CpuStatPrivate::addSource(const QString &source)
 {
     bool ok = false;
 
-    uint min = readAllFile(qPrintable(QString::fromLatin1("/sys/devices/system/cpu/%1/cpufreq/scaling_min_freq").arg(source))).toUInt(&ok);
+    uint min = readAllFile(qPrintable("/sys/devices/system/cpu/%1/cpufreq/scaling_min_freq"_L1.arg(source))).toUInt(&ok);
     if (ok)
     {
-        uint max = readAllFile(qPrintable(QString::fromLatin1("/sys/devices/system/cpu/%1/cpufreq/scaling_max_freq").arg(source))).toUInt(&ok);
+        uint max = readAllFile(qPrintable("/sys/devices/system/cpu/%1/cpufreq/scaling_max_freq"_L1.arg(source))).toUInt(&ok);
         if (ok)
             mBounds[source] = qMakePair(min, max);
     }
@@ -88,14 +89,14 @@ void CpuStatPrivate::updateSources()
                 uint max = range.sliced(dash + 1, range.size() - dash - 1).toUInt(&ok);
                 if (ok)
                     for (uint number = min; number <= max; ++number)
-                        addSource(QString::fromLatin1("cpu%1").arg(number));
+                        addSource(u"cpu%1"_s.arg(number));
             }
         }
         else
         {
             uint number = range.toUInt(&ok);
             if (ok)
-                addSource(QString::fromLatin1("cpu%1").arg(number));
+                addSource(u"cpu%1"_s.arg(number));
         }
     }
 }
@@ -177,7 +178,7 @@ void CpuStatPrivate::timeout()
 
                             for (Bounds::ConstIterator I = mBounds.constBegin(); I != mBounds.constEnd(); ++I)
                             {
-                                uint thisFreq = readAllFile(qPrintable(QString::fromLatin1("/sys/devices/system/cpu/%1/cpufreq/scaling_cur_freq").arg(I.key()))).toUInt(&ok);
+                                uint thisFreq = readAllFile(qPrintable("/sys/devices/system/cpu/%1/cpufreq/scaling_cur_freq"_L1.arg(I.key()))).toUInt(&ok);
 
                                 if (ok)
                                 {
@@ -196,7 +197,7 @@ void CpuStatPrivate::timeout()
                         }
                         else
                         {
-                            freq = readAllFile(qPrintable(QString::fromLatin1("/sys/devices/system/cpu/%1/cpufreq/scaling_cur_freq").arg(mSource))).toUInt(&ok);
+                            freq = readAllFile(qPrintable("/sys/devices/system/cpu/%1/cpufreq/scaling_cur_freq"_L1.arg(mSource))).toUInt(&ok);
 
                             if (ok)
                             {
@@ -239,7 +240,7 @@ void CpuStatPrivate::timeout()
 
             for (Bounds::ConstIterator I = mBounds.constBegin(); I != mBounds.constEnd(); ++I)
             {
-                uint thisFreq = readAllFile(qPrintable(QString::fromLatin1("/sys/devices/system/cpu/%1/cpufreq/scaling_cur_freq").arg(I.key()))).toUInt(&ok);
+                uint thisFreq = readAllFile(qPrintable("/sys/devices/system/cpu/%1/cpufreq/scaling_cur_freq"_L1.arg(I.key()))).toUInt(&ok);
 
                 if (ok)
                 {
@@ -254,7 +255,7 @@ void CpuStatPrivate::timeout()
         }
         else
         {
-            freq = readAllFile(qPrintable(QString::fromLatin1("/sys/devices/system/cpu/%1/cpufreq/scaling_cur_freq").arg(mSource))).toUInt(&ok);
+            freq = readAllFile(qPrintable("/sys/devices/system/cpu/%1/cpufreq/scaling_cur_freq"_L1.arg(mSource))).toUInt(&ok);
         }
         emit update(freq);
     }
