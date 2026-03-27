@@ -38,7 +38,7 @@ MemStatPrivate::MemStatPrivate(MemStat *parent)
 
     connect(mTimer, SIGNAL(timeout()), SLOT(timeout()));
 
-    mSources << QLatin1String("memory") << QLatin1String("swap");
+    mSources << "memory"_L1 << "swap"_L1;
 }
 
 MemStatPrivate::~MemStatPrivate() = default;
@@ -59,21 +59,21 @@ void MemStatPrivate::timeout()
         if (tokens.size() != 3)
             continue;
 
-        if (tokens[0] == QLatin1String("MemTotal:"))
+        if (tokens[0] == "MemTotal:"_L1)
             memTotal = tokens[1].toULong();
-        else if(tokens[0] == QLatin1String("MemFree:"))
+        else if(tokens[0] == "MemFree:"_L1)
             memFree = tokens[1].toULong();
-        else if(tokens[0] == QLatin1String("Buffers:"))
+        else if(tokens[0] == "Buffers:"_L1)
             memBuffers = tokens[1].toULong();
-        else if(tokens[0] == QLatin1String("Cached:"))
+        else if(tokens[0] == "Cached:"_L1)
             memCached = tokens[1].toULong();
-        else if(tokens[0] == QLatin1String("SwapTotal:"))
+        else if(tokens[0] == "SwapTotal:"_L1)
             swapTotal = tokens[1].toULong();
-        else if(tokens[0] == QLatin1String("SwapFree:"))
+        else if(tokens[0] == "SwapFree:"_L1)
             swapFree = tokens[1].toULong();
     }
 
-    if (mSource == QLatin1String("memory"))
+    if (mSource == "memory"_L1)
     {
         if (memTotal)
         {
@@ -85,7 +85,7 @@ void MemStatPrivate::timeout()
             emit memoryUpdate(applications_d, buffers_d, cached_d);
         }
     }
-    else if (mSource == QLatin1String("swap"))
+    else if (mSource == "swap"_L1)
     {
         if (swapTotal)
         {
@@ -98,7 +98,7 @@ void MemStatPrivate::timeout()
 
 QString MemStatPrivate::defaultSource()
 {
-    return QLatin1String("memory");
+    return "memory"_L1;
 }
 
 MemStat::MemStat(QObject *parent)

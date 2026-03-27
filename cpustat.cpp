@@ -67,7 +67,7 @@ void CpuStatPrivate::updateSources()
     {
         QStringList tokens = row.split(u' ', Qt::SkipEmptyParts);
         if( (tokens.size() < 5)
-        || (!tokens[0].startsWith(QLatin1String("cpu"))) )
+        || (!tokens[0].startsWith("cpu"_L1)) )
             continue;
 
         mSources.append(tokens[0]);
@@ -116,7 +116,7 @@ void CpuStatPrivate::sourceChanged()
 void CpuStatPrivate::recalculateMinMax()
 {
     int cores = 1;
-    if (mSource == QLatin1String("cpu"))
+    if (mSource == "cpu"_L1)
         cores = mSources.size() - 1;
 
     mIntervalMin = static_cast<float>(mTimer->interval()) / 1000 * static_cast<float>(mUserHz) * static_cast<float>(cores) / 1.25; // -25%
@@ -131,7 +131,7 @@ void CpuStatPrivate::timeout()
         const QStringList rows = readAllFile("/proc/stat").split(u'\n', Qt::SkipEmptyParts);
         for (const QString &row : rows)
         {
-            if (!row.startsWith(QLatin1String("cpu")))
+            if (!row.startsWith("cpu"_L1))
                 continue;
 
             if (row.startsWith(mSource + u' '))
@@ -171,7 +171,7 @@ void CpuStatPrivate::timeout()
 
                         bool ok = false;
 
-                        if (mSource == QLatin1String("cpu"))
+                        if (mSource == "cpu"_L1)
                         {
                             uint count = 0;
                             freqRate = 0.0;
@@ -234,7 +234,7 @@ void CpuStatPrivate::timeout()
         bool ok = false;
         uint freq = 0;
 
-        if (mSource == QLatin1String("cpu"))
+        if (mSource == "cpu"_L1)
         {
             uint count = 0;
 
@@ -263,7 +263,7 @@ void CpuStatPrivate::timeout()
 
 QString CpuStatPrivate::defaultSource()
 {
-    return QLatin1String("cpu");
+    return "cpu"_L1;
 }
 
 CpuStatPrivate::Values::Values()
