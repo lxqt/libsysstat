@@ -27,6 +27,7 @@
 #include <QtCore/QString>
 #include "version_p.h"
 
+using namespace Qt::Literals::StringLiterals;
 
 namespace SysStat {
 
@@ -34,7 +35,7 @@ namespace version {
 
 QString verbose()
 {
-    return QString::fromLatin1("%1.%2.%3").arg(QLatin1String(MAJOR_VERSION_STR)).arg(QLatin1String(MINOR_VERSION_STR)).arg(QLatin1String(PATCH_VERSION_STR));
+    return "%1.%2.%3"_L1.arg(QLatin1String(MAJOR_VERSION_STR)).arg(QLatin1String(MINOR_VERSION_STR)).arg(QLatin1String(PATCH_VERSION_STR));
 }
 
 int majorNumber()
