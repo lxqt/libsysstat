@@ -27,6 +27,7 @@
 #include "netstat.h"
 #include "netstat_p.h"
 
+using namespace Qt::Literals::StringLiterals;
 
 namespace SysStat {
 
@@ -38,13 +39,13 @@ NetStatPrivate::NetStatPrivate(NetStat *parent)
     connect(mTimer, SIGNAL(timeout()), SLOT(timeout()));
 
 
-    QStringList rows(readAllFile("/proc/net/dev").split(QLatin1Char('\n'), Qt::SkipEmptyParts));
+    QStringList rows(readAllFile("/proc/net/dev").split(u'\n', Qt::SkipEmptyParts));
 
     rows.erase(rows.cbegin(), rows.cbegin() + 2);
 
     for (const QString &row : std::as_const(rows))
     {
-        QStringList tokens = row.split(QLatin1Char(':'), Qt::SkipEmptyParts);
+        QStringList tokens = row.split(u':', Qt::SkipEmptyParts);
         if (tokens.size() != 2)
             continue;
 
@@ -56,17 +57,17 @@ NetStatPrivate::~NetStatPrivate() = default;
 
 void NetStatPrivate::timeout()
 {
-    QStringList rows(readAllFile("/proc/net/dev").split(QLatin1Char('\n'), Qt::SkipEmptyParts));
+    QStringList rows(readAllFile("/proc/net/dev").split(u'\n', Qt::SkipEmptyParts));
 
 
     if (rows.size() < 2)
         return;
 
-    QStringList names = rows[1].split(QLatin1Char('|'));
+    QStringList names = rows[1].split(u'|');
     if (names.size() != 3)
         return;
-    QStringList namesR = names[1].split(QLatin1Char(' '), Qt::SkipEmptyParts);
-    QStringList namesT = names[2].split(QLatin1Char(' '), Qt::SkipEmptyParts);
+    QStringList namesR = names[1].split(u' ', Qt::SkipEmptyParts);
+    QStringList namesT = names[2].split(u' ', Qt::SkipEmptyParts);
     int receivedIndex    =                 namesR.indexOf(QLatin1String("bytes"));
     int transmittedIndex = namesR.size() + namesT.indexOf(QLatin1String("bytes"));
 
@@ -74,13 +75,13 @@ void NetStatPrivate::timeout()
 
     for (const QString &row : std::as_const(rows))
     {
-        QStringList tokens = row.split(QLatin1Char(':'), Qt::SkipEmptyParts);
+        QStringList tokens = row.split(u':', Qt::SkipEmptyParts);
         if (tokens.size() != 2)
             continue;
 
         QString interfaceName = tokens[0].trimmed();
 
-        QStringList data = tokens[1].split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        QStringList data = tokens[1].split(u' ', Qt::SkipEmptyParts);
         if (data.size() < transmittedIndex)
             continue;
 

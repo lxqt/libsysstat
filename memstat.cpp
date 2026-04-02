@@ -27,6 +27,7 @@
 #include "memstat.h"
 #include "memstat_p.h"
 
+using namespace Qt::Literals::StringLiterals;
 
 namespace SysStat {
 
@@ -51,10 +52,10 @@ void MemStatPrivate::timeout()
     qulonglong swapTotal = 0;
     qulonglong swapFree = 0;
 
-    const QStringList rows = readAllFile("/proc/meminfo").split(QLatin1Char('\n'), Qt::SkipEmptyParts);
+    const QStringList rows = readAllFile("/proc/meminfo").split(u'\n', Qt::SkipEmptyParts);
     for (const QString &row : rows)
     {
-        QStringList tokens = row.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        QStringList tokens = row.split(u' ', Qt::SkipEmptyParts);
         if (tokens.size() != 3)
             continue;
 
