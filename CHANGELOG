@@ -1,3 +1,7 @@
+libsysstat-1.2.0 / 2026-11-05
+=============================
+ * Used the operators of `Qt::Literals::StringLiterals` instead of `QString::fromLatin1()`, `QLatin1String()` and `QLatin1Char()`.
+
 libsysstat-1.1.0 / 2024-11-05
 =============================
  * Don't mix const and non const iterators.
